@@ -11,5 +11,7 @@ public class Move {
     turn = aTurn;
   }
 
-  public 
+  public String toString() {
+    return "Player " + (turn) ? "1" : "2" + "made the move at: " + x + " " + y;
+  }
 }

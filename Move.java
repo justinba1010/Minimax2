@@ -12,6 +12,6 @@ public class Move implements BaseMove{
   }
 
   public String toString() {
-    return "Player " + (turn) ? "1" : "2" + "made the move at: " + x + "|" + y;
+    return "Player " + ((turn) ? "1" : "2") + "made the move at: " + x + "|" + y;
   }
 }

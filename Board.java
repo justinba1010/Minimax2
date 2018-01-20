@@ -1,11 +1,11 @@
 import java.util.*;
 //TicTacToe
 
-public class TicTacToeBoard implements BaseBoard {
+class Board extends BaseBoard {
   int[][] gameboard;
 
-  public TicTacToeBoard() {
-    gameboard = {{0,0,0},{0,0,0},{0,0,0}};
+  public Board() {
+    gameboard = new int[][] {{0,0,0},{0,0,0},{0,0,0}};
   }
   public int score() {
     //ROWS && COLUMNS
@@ -25,7 +25,7 @@ public class TicTacToeBoard implements BaseBoard {
     return gameboard[move.x][move.y] == 0;
   }//isLegalMove
 
-  public boolean makeMove(Move move) {
+  public void makeMove(Move move) {
     gameboard[move.x][move.y] = (move.turn) ? 1 : -1;
   }//makeMove
 
@@ -34,7 +34,7 @@ public class TicTacToeBoard implements BaseBoard {
     for(int x = 0; x < 3; x++) {
       for(int y = 0; y < 3; y++) {
         Move move = new Move(x,y,turn);
-        if(isLegalMove(move)) {
+        if(isLegalMove(move, turn)) {
           moves.add(move);
         }//if legal`
       }//for y

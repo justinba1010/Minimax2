@@ -20,12 +20,11 @@ public class Node {
     turn = aTurn;
   }
 
-  private init() {
+  private void init() {
     board = new Board();
     value = 0;
     children = new ArrayList<Node>();
     turn = true;
-    parent = null;
     lastMove = null;
     bestMove = null;
   }
@@ -51,6 +50,7 @@ public class Node {
 
   private void makeLastMove(Move move) {
     board.makeMove(move);
+    lastMove = move;
     nextMove();
   }//makeLastMove
 
@@ -75,12 +75,12 @@ public class Node {
       if(turn) {//Maximize for player 1
         if(child.value >= value) {
           value = child.value;
-          bestMove = child;
+          bestMove = child.lastMove;
         }//if child value is greater
       } else {
         if(child.value <= value) {
           value = child.value;
-          bestMove = child;
+          bestMove = child.lastMove;
         }//if child value is lesser
       }//whos turn
     }//for child

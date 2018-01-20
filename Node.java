@@ -2,11 +2,11 @@ import java.util.*;
 
 public class Node {
   public Board board;
-  private int value;
-  private ArrayList<Node> children;
-  private boolean turn; //True = player 1(max); False = player 2(min)
-  private Node parent;
-  private Move lastMove;
+  public int value;
+  public Move bestMove;
+  public ArrayList<Node> children;
+  public boolean turn; //True = player 1(max); False = player 2(min)
+  public Move lastMove;
 
   //Initializers
   public Node() {
@@ -27,6 +27,7 @@ public class Node {
     turn = true;
     parent = null;
     lastMove = null;
+    bestMove = null;
   }
 
   //PUBLICS
@@ -38,14 +39,52 @@ public class Node {
         child.generate(branches-1);//Generate x children of each child
       }
     } else {
-      for(Move move : board.generateLegalMoves()) {
+      for(Move move : board.generateLegalMoves(turn)) {//If there are no legal moves, the game is over.
         Node newNode = new Node(board, move, turn);
         newNode.makeLastMove(move); //This will
+        newNode.generate(branches-1);
+        newNode.score();
         children.add(newNode);
-        if(!newNode.board.isOver)
       }
     }//if children size
   }//generate
+
+  private void makeLastMove(Move move) {
+    board.makeMove(move);
+    nextMove();
+  }//makeLastMove
+
+  public void makeMove(Move move) {
+    if(board.isLegalMove(move, move.turn)) {
+      board.makeMove(move);
+      nextMove();
+    } else {
+      System.out.println("Error Move... Need more error checking.");
+    }
+  }//makeMove
+
+  public void score() {
+    value = board.score();
+  }
+
+  public void minimax(int branches) {
+    if(branches <= 0) return; //End of search
+    if(children.size() == 0) return; //End of tree
+    for(Node child : children) {
+      child.minimax(branches-1);
+      if(turn) {//Maximize for player 1
+        if(child.value >= value) {
+          value = child.value;
+          bestMove = child;
+        }//if child value is greater
+      } else {
+        if(child.value <= value) {
+          value = child.value;
+          bestMove = child;
+        }//if child value is lesser
+      }//whos turn
+    }//for child
+  }//minimax
 
   public void nextMove() {//Go to the next move
     turn = !turn;

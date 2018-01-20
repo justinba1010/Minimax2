@@ -1,6 +1,6 @@
 import java.util.*;
-//OTHELLO
-public class Move {
+//Tic Tac Toe
+public class Move implements BaseMove{
   public int x;
   public int y;
   public boolean turn;
@@ -12,6 +12,6 @@ public class Move {
   }
 
   public String toString() {
-    return "Player " + (turn) ? "1" : "2" + "made the move at: " + x + " " + y;
+    return "Player " + (turn) ? "1" : "2" + "made the move at: " + x + "|" + y;
   }
 }

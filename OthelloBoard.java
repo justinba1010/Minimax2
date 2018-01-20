@@ -1,6 +1,6 @@
 import java.util.*;
 //OTHELLO
-public class Board {
+public class Board implements BaseBoard {
   private static final int BOARD_SIZE = 6;
 
   public int[][] gameBoard;

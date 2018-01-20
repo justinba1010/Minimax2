@@ -1,7 +1,7 @@
 import java.util.*;
 //TicTacToe
 
-class Board extends BaseBoard {
+public class Board extends BaseBoard {
   int[][] gameboard;
 
   public Board() {
@@ -21,7 +21,7 @@ class Board extends BaseBoard {
     return 0;//TIE
   }//score
 
-  public boolean isLegalMove(Move move, boolean turn) {
+  public boolean isLegalMove(Move move) {
     return gameboard[move.x][move.y] == 0;
   }//isLegalMove
 
@@ -34,11 +34,27 @@ class Board extends BaseBoard {
     for(int x = 0; x < 3; x++) {
       for(int y = 0; y < 3; y++) {
         Move move = new Move(x,y,turn);
-        if(isLegalMove(move, turn)) {
+        if(isLegalMove(move)) {
           moves.add(move);
         }//if legal`
       }//for y
     }//for x
     return moves;
   }//generateLegalMoves
+
+  public String toString() {
+    String s = "";
+    for(int[] row : gameboard) {
+      for(int spot = 0; spot < row.length; spot++) {
+        s += ((row[spot] == 0) ? " " : (row[spot] == 1) ? "X" : "O");
+        s += (spot == 2) ? "" : "|";
+      }
+      s += "\n";
+    }
+    return s;
+  }//toString
+
+  public boolean isGameOver() {
+    return (generateLegalMoves(true).size() == 0 || score() != 0);
+  }
 }//TicTacToeBoard

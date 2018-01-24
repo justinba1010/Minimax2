@@ -41,7 +41,7 @@ public class Node {
       }//for each child
     }//if children exist
     for(Move move : board.generateLegalMoves(turn)) {
-      Node child  = new Node(board, move, !turn);
+      Node child  = new Node(board.deepCopy(), move, !turn);
       child.board.makeMove(move);
       children.add(child);
       child.generate(branches-1);

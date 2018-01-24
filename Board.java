@@ -57,4 +57,14 @@ public class Board extends BaseBoard {
   public boolean isGameOver() {
     return (generateLegalMoves(true).size() == 0 || score() != 0);
   }
+
+  public Board deepCopy() {
+    Board aboard = new Board();
+    for(int row = 0; row < 3; row++) {
+      for(int col = 0; col < 3; col++) {
+        aboard.gameboard[row][col] = gameboard[row][col];
+      }
+    }
+    return aboard;
+  }
 }//TicTacToeBoard

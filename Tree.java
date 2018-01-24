@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Tree {
   private int difficulty;
-  private Node tree;
+  public Node tree;
   public Tree() {
     difficulty = 9;//Magic value for now
     tree.generate(1);
@@ -17,6 +17,6 @@ public class Tree {
     return tree.bestMove;
   }//bestMove
   public void makeMove(Move move) {
-    tree.makeMove(move);
+    tree = tree.makeMove(move);
   }
 }

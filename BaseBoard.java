@@ -19,4 +19,7 @@ public class BaseBoard {
   public boolean isGameOver() {
     return false;
   }
+  public Object deepCopy() {
+    return null;
+  }
 }

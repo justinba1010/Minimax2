@@ -3,11 +3,10 @@ import java.util.*;
 public class Node {
   public Board board;
   public int value;
-  public Move bestMove;
+  public Node bestMove;
+  public Move lastMove;
   public ArrayList<Node> children;
   public boolean turn; //True = player 1(max); False = player 2(min)
-  public Move lastMove;
-
   //Initializers
   public Node() {
     init();
@@ -25,70 +24,58 @@ public class Node {
     value = 0;
     children = new ArrayList<Node>();
     turn = true;
-    lastMove = null;
     bestMove = null;
-  }
+    lastMove = null;
+  }//init
 
   //PUBLICS
   public void generate(int branches) {
-    if(branches <= 0) return; //Halt condition
+    value = board.score(); //BOARD SCORER
+    if(branches <= 0) {
+      return;
+    }//terminator
 
-    if(children.size() != 0) { //We have children already
+    if(children.size() > 0) {
       for(Node child : children) {
-        child.generate(branches-1);//Generate x children of each child
-      }
-    } else {
-      for(Move move : board.generateLegalMoves(turn)) {//If there are no legal moves, the game is over.
-        Node newNode = new Node(board, move, turn);
-        newNode.makeLastMove(move); //This will
-        newNode.generate(branches-1);
-        newNode.score();
-        children.add(newNode);
-      }
-    }//if children size
+        child.generate(branches-1);
+      }//for each child
+    }//if children exist
+    for(Move move : board.generateLegalMoves(turn)) {
+      Node child  = new Node(board, move, !turn);
+      child.board.makeMove(move);
+      children.add(child);
+      child.generate(branches-1);
+    }//for
   }//generate
 
-  private void makeLastMove(Move move) {
-    board.makeMove(move);
-    lastMove = move;
-    nextMove();
-  }//makeLastMove
-
-  public void makeMove(Move move) {
-    if(board.isLegalMove(move, move.turn)) {
-      board.makeMove(move);
-      nextMove();
-    } else {
-      System.out.println("Error Move... Need more error checking.");
-    }
-  }//makeMove
-
-  public void score() {
-    value = board.score();
-  }
-
   public void minimax(int branches) {
-    if(branches <= 0) return; //End of search
-    if(children.size() == 0) return; //End of tree
+    if(branches <= 0) {
+      return;
+    }//branches
+    if(children.size() == 0) {
+      return;
+    }
+    int ayo = (turn) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
     for(Node child : children) {
       child.minimax(branches-1);
-      if(turn) {//Maximize for player 1
-        if(child.value >= value) {
-          value = child.value;
-          bestMove = child.lastMove;
-        }//if child value is greater
+      if(turn) {
+        if(child.value > ayo) {
+          ayo = child.value;
+          bestMove = child;
+        }
       } else {
-        if(child.value <= value) {
-          value = child.value;
-          bestMove = child.lastMove;
-        }//if child value is lesser
-      }//whos turn
+        if(child.value < ayo) {
+          ayo = child.value;
+          bestMove = child;
+        }
+      }
     }//for child
+    value = ayo;
   }//minimax
 
-  public void nextMove() {//Go to the next move
-    turn = !turn;
+  public String toString() {
+    String s = "";
+    return "Turn: " + turn + "\tValue: " + value;
   }
-
   //PRIVATES
 }//node

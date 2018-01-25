@@ -14,4 +14,8 @@ public class Move implements BaseMove{
   public String toString() {
     return "Player " + ((turn) ? "1" : "2") + "made the move at: " + x + "|" + y;
   }
+
+  public boolean equals(Move amove) {
+    return amove.x == x && amove.y == y && amove.turn == turn;
+  }
 }

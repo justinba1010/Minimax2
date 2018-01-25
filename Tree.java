@@ -5,18 +5,25 @@ public class Tree {
   public Node tree;
   public Tree() {
     difficulty = 9;//Magic value for now
+    tree = new Node();
     tree.generate(1);
   }//Tree
   public Tree(int aDifficulty) {
+    tree = new Node();
     difficulty = aDifficulty;
     tree.generate(1);
   }//Tree
   public Move bestMove() {
     tree.generate(difficulty);
     tree.minimax(difficulty);
-    return tree.bestMove;
+    return tree.bestMove.lastMove;
   }//bestMove
   public void makeMove(Move move) {
-    tree = tree.makeMove(move);
+    Node child = tree.makeMove(move);
+    tree = (child == null) ? tree : child;//Make the move only if the move exists
+  }
+
+  public void makeBestMove() {
+    tree = (tree.bestMove == null) ? tree : tree.bestMove;
   }
 }

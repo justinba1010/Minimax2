@@ -77,5 +77,13 @@ public class Node {
     String s = "";
     return "Turn: " + turn + "\tValue: " + value;
   }
+
+  public Node makeMove(Move move) {
+    generate(1);
+    for(Node child : children) {
+      if(child.lastMove.equals(move)) return child;
+    }
+    return null;
+  }//makeMove
   //PRIVATES
 }//node

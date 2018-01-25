@@ -22,6 +22,7 @@ public class Board extends BaseBoard {
   }//score
 
   public boolean isLegalMove(Move move) {
+    if(move == null) return false;
     return gameboard[move.x][move.y] == 0;
   }//isLegalMove
 

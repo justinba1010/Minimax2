@@ -9,3 +9,9 @@ This was one reason I chose Java over Python, because alas I have all semester t
 
 # Changing Games
 The idea is that all you have to do is load a new Board.java and Move.java file and you should have a fully functioning AI that plays the new Game.
+
+# TicTacToe
+1. Make sure the Board.java is the TicTacToe code.
+2. Make sure the Move.java is the TicTacToe code.
+3. javac TicTacToeGameAI.java && java TicTacToeGameAI
+4. Seems faster than my last project Minimax.

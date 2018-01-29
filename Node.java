@@ -59,12 +59,12 @@ public class Node {
     for(Node child : children) {
       child.minimax(branches-1);
       if(turn) {
-        if(child.value > ayo) {
+        if(child.value >= ayo) {
           ayo = child.value;
           bestMove = child;
         }
       } else {
-        if(child.value < ayo) {
+        if(child.value <= ayo) {
           ayo = child.value;
           bestMove = child;
         }

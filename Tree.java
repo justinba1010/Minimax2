@@ -6,12 +6,13 @@ public class Tree {
   public Tree() {
     difficulty = 9;//Magic value for now
     tree = new Node();
-    tree.generate(1);
+    tree.generate(difficulty);
   }//Tree
   public Tree(int aDifficulty) {
     tree = new Node();
     difficulty = aDifficulty;
-    tree.generate(1);
+    tree.generate(difficulty);
+    tree.minimax(difficulty);
   }//Tree
   public Move bestMove() {
     tree.generate(difficulty);

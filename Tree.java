@@ -4,9 +4,10 @@ public class Tree {
   private int difficulty;
   public Node tree;
   public Tree() {
-    difficulty = 9;//Magic value for now
+    difficulty = 10;//Magic value for now
     tree = new Node();
     tree.generate(difficulty);
+    tree.minimax(difficulty);
   }//Tree
   public Tree(int aDifficulty) {
     tree = new Node();

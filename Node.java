@@ -35,11 +35,17 @@ public class Node {
       return;
     }//terminator
 
+    //Stop generating when game is over, leads to glitches
+    if(board.isGameOver()) return;
+
+
     if(children.size() > 0) {
       for(Node child : children) {
         child.generate(branches-1);
       }//for each child
     }//if children exist
+
+
     for(Move move : board.generateLegalMoves(turn)) {
       Node child  = new Node(board.deepCopy(), move, !turn);
       child.board.makeMove(move);
@@ -74,8 +80,7 @@ public class Node {
   }//minimax
 
   public String toString() {
-    String s = "";
-    return "Turn: " + turn + "\tValue: " + value;
+    return board.toString() + "Turn: " + turn + "\tValue: " + value;
   }
 
   public Node makeMove(Move move) {

@@ -2,7 +2,7 @@ import java.util.*;
 //TicTacToe
 
 public class Board extends BaseBoard {
-  int[][] gameboard;
+  public int[][] gameboard;
 
   public Board() {
     gameboard = new int[][] {{0,0,0},{0,0,0},{0,0,0}};

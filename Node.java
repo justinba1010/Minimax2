@@ -1,5 +1,7 @@
 import java.util.*;
 
+
+//TODO Make generics so board can be specified eventually.
 public class Node {
   public Board board;
   public int value;

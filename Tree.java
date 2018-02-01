@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class Tree {
+public class Tree <T extends BaseBoard, B extends BaseMove> {
   private int difficulty;
-  public Node tree;
+  public Node<T, B> tree;
   public Tree() {
     difficulty = 10;//Magic value for now
     tree = new Node();
@@ -10,18 +10,18 @@ public class Tree {
     tree.minimax(difficulty);
   }//Tree
   public Tree(int aDifficulty) {
-    tree = new Node();
+    tree = new Node<T, B>();
     difficulty = aDifficulty;
     tree.generate(difficulty);
     tree.minimax(difficulty);
   }//Tree
-  public Move bestMove() {
+  public B bestMove() {
     tree.generate(difficulty);
     tree.minimax(difficulty);
-    return tree.bestMove.lastMove;
+    return (B)tree.bestMove.lastMove;
   }//bestMove
-  public void makeMove(Move move) {
-    Node child = tree.makeMove(move);
+  public void makeMove(B move) {
+    Node<T, B> child = tree.makeMove(move);
     tree = (child == null) ? tree : child;//Make the move only if the move exists
   }
 

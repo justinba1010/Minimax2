@@ -3,8 +3,7 @@ import java.util.*;
 public class TicTacToeGameAI {
   public static void main(String[] args) {
     Scanner keyboard = new Scanner(System.in);
-
-    Tree tictactoe = new Tree(9);
+    Tree<Board, Move> tictactoe = new Tree<Board, Move>(9);
     System.out.print("Enter 1 for X anything else to be O: ");
     boolean player = keyboard.nextInt() == 1 ? true : false;
     System.out.println(tictactoe.tree);

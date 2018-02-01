@@ -5,13 +5,13 @@ public class BaseBoard {
   public int score(){
     return 0;
   }
-  public boolean isLegalMove(Move move) {
+  public boolean isLegalMove(BaseMove move) {
     return false;
   }
-  public void makeMove(Move move){
+  public void makeMove(BaseMove move){
   }
-  public ArrayList<Move> generateLegalMoves(boolean turn){
-    return new ArrayList<Move>();
+  public ArrayList<BaseMove> generateLegalMoves(boolean turn){
+    return new ArrayList<BaseMove>();
   }
   public String toString() {
     return "";

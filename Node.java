@@ -2,29 +2,29 @@ import java.util.*;
 
 
 //TODO Make generics so board can be specified eventually.
-public class Node {
-  public Board board;
+public class Node <T extends BaseBoard, B extends BaseMove>{
+  public T board;
   public int value;
   public Node bestMove;
-  public Move lastMove;
-  public ArrayList<Node> children;
+  public B lastMove;
+  public ArrayList<Node<T, B>> children;
   public boolean turn; //True = player 1(max); False = player 2(min)
   //Initializers
   public Node() {
     init();
   }//Node
 
-  public Node(Board aBoard, Move aLastMove, boolean aTurn){
+  public Node(Object aBoard, B aLastMove, boolean aTurn){
     init();
-    board = aBoard;
+    board = (T)aBoard;
     lastMove = aLastMove;
     turn = aTurn;
   }
 
   private void init() {
-    board = new Board();
+    board = new BaseBoard();
     value = 0;
-    children = new ArrayList<Node>();
+    children = new ArrayList<Node<T, B>>();
     turn = true;
     bestMove = null;
     lastMove = null;
@@ -42,15 +42,15 @@ public class Node {
 
 
     if(children.size() > 0) {
-      for(Node child : children) {
+      for(Node<T, B> child : children) {
         child.generate(branches-1);
       }//for each child
     }//if children exist
 
 
-    for(Move move : board.generateLegalMoves(turn)) {
-      Node child  = new Node(board.deepCopy(), move, !turn);
-      child.board.makeMove(move);
+    for(Object move : board.generateLegalMoves(turn)) {
+      Node<T,B> child  = new Node<T,B>(board.deepCopy(), (B)move, !turn);
+      child.board.makeMove((B)move);
       children.add(child);
       child.generate(branches-1);
     }//for
@@ -64,7 +64,7 @@ public class Node {
       return;
     }
     int ayo = (turn) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-    for(Node child : children) {
+    for(Node<T, B> child : children) {
       child.minimax(branches-1);
       if(turn) {
         if(child.value >= ayo) {
@@ -85,9 +85,9 @@ public class Node {
     return board.toString() + "Turn: " + turn + "\tValue: " + value;
   }
 
-  public Node makeMove(Move move) {
+  public Node<T, B> makeMove(B move) {
     generate(1);
-    for(Node child : children) {
+    for(Node<T, B> child : children) {
       if(child.lastMove.equals(move)) return child;
     }
     return null;

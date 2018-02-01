@@ -1,16 +1,16 @@
 import java.util.*;
 
 //Just to show the required functions
-public class BaseBoard {
+public class BaseBoard<B> {
   public int score(){
     return 0;
   }
-  public boolean isLegalMove(BaseMove move) {
+  public boolean isLegalMove(B move) {
     return false;
   }
-  public void makeMove(BaseMove move){
+  public void makeMove(B move){
   }
-  public ArrayList<BaseMove> generateLegalMoves(boolean turn){
+  public ArrayList<B> generateLegalMoves(boolean turn){
     return new ArrayList<BaseMove>();
   }
   public String toString() {

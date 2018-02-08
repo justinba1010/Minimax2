@@ -1,4 +1,8 @@
-public interface BaseMove {
-  public String toString();
-  public boolean equals(Move amove);
+public class BaseMove {
+  public String toString() {
+    return "";
+  }
+  public boolean equals(BaseMove amove){
+    return false;
+  }
 }

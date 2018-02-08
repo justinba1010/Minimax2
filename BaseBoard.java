@@ -1,7 +1,7 @@
 import java.util.*;
 
 //Just to show the required functions
-public class BaseBoard<B> {
+public class BaseBoard<B extends BaseMove> {
   public int score(){
     return 0;
   }
@@ -11,7 +11,7 @@ public class BaseBoard<B> {
   public void makeMove(B move){
   }
   public ArrayList<B> generateLegalMoves(boolean turn){
-    return new ArrayList<BaseMove>();
+    return new ArrayList<B>();
   }
   public String toString() {
     return "";
